@@ -45,8 +45,8 @@ In order to reorient our Player, we just need to make our Player’s up directio
 >We did this by changing our teleport code to look like this:
 >
 ```
-transform.position = target.point;
-transform.up = target.normal;
+player.position = target.point;
+player.up = target.normal;
 ```
 
 Now we have our basic teleport mechanic in place for one hand. We’re going to now make it work on BOTH hands.
