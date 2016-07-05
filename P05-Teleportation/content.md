@@ -131,173 +131,175 @@ Feel free to take a few moments to customize your Beam and Reticle.
 
 ![](../media/image109.gif)
 
+>[solution]
+>
 We added a SteamVR\_PlayArea as a child of our Reticle and made our Reticle reorient based on the expected teleportation orientation.
-
+>
 In doing this, we also found it helpful to encapsulate our Reticle and Laser as components, so that we didn’t have so much confusing clutter in our TeleportationBeam that was so specific to how the beam was drawn.
-
+>
 Our new components looked like this:
-
+>
 ```
 using UnityEngine;
 using System.Collections;
-
+>
 [RequireComponent(typeof(LineRenderer))]
 public class Laser : MonoBehaviour {
-
+>
   LineRenderer lr;
-
+>
   // Use this for initialization
   void Start () {
     lr = GetComponent<LineRenderer>();
   }
-
+>
   // Update is called once per frame
   void Update () {
-
+>
   }
-
+>
   public void SetColor(Color color) {
     lr.SetColors(color, color);
   }
-
+>
   public void SetWaypoints(Vector3[] waypoints) {
-
+>
     lr.SetVertexCount(waypoints.Length);
     lr.SetPositions(waypoints);
   }
 }
 ```
-
+>
 and
-
+>
 ```
 using UnityEngine;
 using System.Collections;
-
+>
 [RequireComponent(typeof(Light))]
 public class Reticle : MonoBehaviour {
-
+>
   private Light halo;
   public SteamVR_PlayArea playArea;
-
+>
   // Use this for initialization
   void Start () {
     halo = GetComponent<Light>();
   }
-
+>
   // Update is called once per frame
   void Update () {
-
+>
   }
-
+>
   public void SetColor(Color color) {
-
+>
     halo.color = color;
     playArea.color = color;
   }
-
+>
   public void ShowPlayArea(bool doShow) {
     playArea.enabled = doShow;
     playArea.gameObject.SetActive(doShow);
   }
 }
 ```
-
+>
 And our TeleportationBeam component changed to look like this:
-
+>
 ```
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-
+>
 public class TeleportationBeam : MonoBehaviour {
-
+>
   public Valve.VR.EVRButtonId buttonId = Valve.VR.EVRButtonId.k_EButton_Axis0;
-
+>
   public GameObject laserPrefab;
   public GameObject reticlePrefab;
   public Transform player;
-
+>
   private Reticle reticle;
   private Laser laser;
-
+>
   public float range = 20f;
-
+>
   public Color enabledColor = Color.white;
   public Color disabledColor = Color.red;
-
+>
   private SteamVR_TrackedObject controller;
-
+>
   private RaycastHit target;
   private bool canTeleport;
-
+>
   // Use this for initialization
   void Start() {
-
+>
     GameObject laserObj = (GameObject)Instantiate(laserPrefab);
     GameObject reticleObj = (GameObject)Instantiate(reticlePrefab);
-
+>
     laserObj.transform.SetParent(player);
     reticleObj.transform.SetParent(player);
-
+>
     reticle = reticleObj.GetComponent<Reticle>();
     laser = laserObj.GetComponent<Laser>();
-
+>
     controller = GetComponent<SteamVR_TrackedObject>();
   }
-
+>
   // Update is called once per frame
   void Update() {
-
+>
     laser.gameObject.SetActive(false);
     reticle.gameObject.SetActive(false);
-
+>
     SteamVR_Controller.Device device = SteamVR_Controller.Input((int)controller.index);
-
+>
     if (device.GetPress(buttonId)) {
-
+>
       canTeleport = false;
-
+>
       laser.gameObject.SetActive(true);
       reticle.gameObject.SetActive(true);
-
+>
       RaycastHit hit;
       Ray ray = new Ray(transform.position, transform.forward);
-
+>
       List<Vector3> waypoints = new List<Vector3>();
       waypoints.Add(transform.position);
-
+>
       reticle.transform.position = ray.origin + ray.direction * range;
-
+>
       if (Physics.Raycast(ray, out hit, range)) {
-
+>
         target = hit;
         canTeleport = true;
-
+>
         reticle.transform.position = target.point;
         reticle.transform.up = target.normal;
-
+>
       }
-
+>
       waypoints.Add(reticle.transform.position);
-
+>
       laser.SetWaypoints(waypoints.ToArray());
-
+>
       Color color = canTeleport ? enabledColor : disabledColor;
       laser.SetColor(color);
       reticle.SetColor(color);
       reticle.ShowPlayArea(canTeleport);
     }
-
+>
     if (device.GetPressUp(buttonId) && canTeleport) {
-
+>
       player.position = target.point;
       player.up = target.normal;
     }
   }
 }
 ```
-
+>
 The new components were added to our Laser and Reticle respectively, and our Reticle’s overall structure was changed to include a child with a SteamVR\_PlayArea component attached to it.
-
+>
 ![](../media/image101.png)
