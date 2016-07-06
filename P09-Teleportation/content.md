@@ -131,8 +131,13 @@ Congratulations! You’ve just implemented a beam that can reflect and refract a
 
 If you’d like to make your reflective object, we've included a Reflect component you can drag onto your reflective object.
 
-If you want a "light" challenge, go ahead and try implementing a few
-levels.
+If you want some "light" challenges, go ahead and try implementing any of these:
+
+- adding levels
+
+- making your teleport beam go in an arc (you may want to turn off reflection and refraction for this)
+
+- making your laser beam pulse like the sample beam -- hint!  Look at the [SetTextureScale](https://docs.unity3d.com/ScriptReference/Material.SetTextureScale.html) and [SetTextureOffset](https://docs.unity3d.com/ScriptReference/Material.SetTextureOffset.html) properties of Material ;)
 
 If you’d like a more difficult challenge, here are a few things to
 consider:
