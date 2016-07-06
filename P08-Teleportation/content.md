@@ -88,7 +88,7 @@ void Update() {
   }
 }
 >
-private bool CanTeleport(ref List<Vector3>; waypoints, ref RaycastHit final) {
+private bool CanTeleport(ref List<Vector3> waypoints, ref RaycastHit final) {
 >
   Ray ray = new Ray(transform.position, transform.forward);
   waypoints.Add(transform.position);
