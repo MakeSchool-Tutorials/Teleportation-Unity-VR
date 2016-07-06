@@ -36,7 +36,12 @@ we created.
 In order to reorient our Player, we just need to make our Player’s up direction face the same as the normal of the target point we hit. Luckily, our hit gives us access to the normal. You can access the normal of any RaycastHit, hit, by saying “hit.normal.”
 
 >[action]
->Go ahead and make the Player teleport to the correct orientation.
+>Go ahead and make the Player teleport to the correct orientation by making the player's up direction face the same as the normal.
+
+<!-- -->
+
+>[info]
+This method of orienting the player is good enough to get us going, HOWEVER it is not perfect.  This will keep your feet to the wall when you land, but there is an additional degree of freedom!  Which way should the player face rotationally? This tutorial will not address that issue, but we suggest that you come back to that problem at the end.  It is challenging!
 
 <!-- -->
 
