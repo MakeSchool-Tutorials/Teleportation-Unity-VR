@@ -97,7 +97,7 @@ go.GetInstanceID() for some instance of a GameObject, go.
 Our code looks like this:
 >
 ```
-ray.origin = hit.point + ray.direction \* wallThickness;
+ray.origin = hit.point + ray.direction * wallThickness;
 >
 Refract refract =
 hit.collider.gameObject.GetComponent<Refract>();
