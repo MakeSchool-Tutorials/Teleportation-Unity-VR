@@ -8,22 +8,23 @@ We’re now going to take a brief break from teleportation to add some gameplay 
 >[action]
 >Go ahead and create a Goal Prefab and a Token Prefab. To distinguish them, make the Goal clear and the Token opaque.
 
-![](../media/image113.png)
+![The Goal and Token](../media/image113.png)
 
 We’re going to make our Goal work not just by detecting whether or not it’s touched the Token, but whether or not the Token is inside its bounds, within some threshold.
 
 In order to allow ourselves to do this kind of detection, change Goal’s Collider to be a Trigger.
 
-![](../media/image104.png)
+![We made our Goal use a trigger collider](../media/image104.png)
 
 >[action]
 >Then make the goal destroy the token when the token falls inside it. To test this, it may be easiest to place the Token directly above the Goal.
 >
-![](../media/image102.gif)
+![Our Token disappears when it touches our Goal](../media/image102.gif)
 
 <!-- -->
 
 >[solution]
+>
 To do this, we tagged our Token with the new tag “Token,”
 <
 ![](../media/image45.png)
@@ -49,7 +50,7 @@ public class Goal : MonoBehaviour {
       }
     }
   }
-
+>
 }
 ```
 
@@ -60,7 +61,7 @@ The final two steps our gameplay needs is to make all the Tokens be affected by 
 >[action]
 >Go ahead and make your Tokens change gravity based on the Player’s direction. We suggest using the ConstantForce component -- a component that allows you to apply a constant force in ANY direction -- and turning off gravity on the Token’s Rigidbody.
 
-![](../media/image91.gif)
+![The tokens fall with gravity facing your direction](../media/image91.gif)
 
 >[solution]
 >
@@ -143,13 +144,13 @@ First of all, our teleportation implementation allows us to teleport to anything
 
 We don’t want our Player to be able to teleport to the goal, because…
 
-![](../media/image12.gif)
+![Issue 1) we can teleport anywhere](../media/image12.gif)
 
 AAAAAAHHH WHERE DID MY FLOOR JUST GO??? \*\*hurl\*\*
 
 Further, because our Goal acts like a region rather than a solid object, we really don’t want our beam to interact with it at all.
 
-![](../media/image61.png)
+![Issue 2) the beam interacts with our Goal](../media/image61.png)
 
 First, let’s address our Goal.
 
@@ -164,7 +165,7 @@ Physics.Raycast(ray, out hit, range,1,QueryTriggerInteraction.Ignore)
 
 Now your Goal and Beam should no longer collide!
 
-![](../media/image60.gif)
+![Our beam no longer interacts with our Goal :)](../media/image60.gif)
 
 Physics.Raycast has many forms, and some of them allow us to specify that we want to ignore Colliders that have isTrigger set to true, like the Goal. This new form required us to set a layer mask parameter (that mysterious 1), a set of flags represented as a 32-bit number, where each bit corresponds to a layer set to true or false. We could have also prevented ray casting onto the Goal by putting it on a separate layer from everything else; we chose this solution largely as a matter of preference (fewer steps, and it has the added benefit that our beam now also ignores collisions with any other trigger Colliders we add to our Scene).
 
@@ -181,7 +182,7 @@ For the purposes of this tutorial, we’re going to take the more intentional ap
 >[action]
 >Go ahead prevent teleportation to the Token.
 
-![](../media/image63.gif)
+![Our Tokens are now non-teleportable :)](../media/image63.gif)
 
 >[solution]
 >

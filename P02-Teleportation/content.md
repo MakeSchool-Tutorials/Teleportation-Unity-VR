@@ -36,9 +36,9 @@ public class TeleportationBeam : MonoBehaviour {
 >
 >Then create and assign a Reticle to the component’s Reticle slot. We used a Point Light with haloing turned on as our Reticle.
 
-![](../media/image111.png)
+![The reticle is in the slot](../media/image111.png)
 
-![](../media/image42.gif)
+![The reticle moves around with our pointer](../media/image42.gif)
 
 >[info]
 >Physics.Raycast is a method that returns true if a Ray (a geometric body with both position and direction, so like a vector that never ends and has a position in space) passes through a Collider, like those on our Planes and Cubes. If a Collider is hit, information from that hit is passed into the funny looking parameter “out hit” in the form of a RaycastHit. The “out” means that this variable can be modified by the function and then comes back to us as output. For a more technical definition, “out” means the variable is passed by reference and will be initialized within the function.
@@ -47,7 +47,7 @@ For our Ray, we’ve chosen one that starts at the hand’s position and points 
 
 There’s an edge case our code misses though. If you change your level such that there are gaps between the walls, you can see it. Watch what happens when you drag your aim across a gap.
 
-![](../media/image100.gif)
+![The reticle has a few issues](../media/image100.gif)
 
 The reticle appears to “stick” to its old position when we pass over gaps, i.e. when we’re not aiming at anything.
 

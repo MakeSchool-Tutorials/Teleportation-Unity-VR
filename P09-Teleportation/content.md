@@ -18,7 +18,7 @@ and opening the resulting package in your project.
 >[action]
 >Obtain and import the package, and then create a new Primitive. Give it a new “Refract” tag, and add the Refract component to it. To make it easier to see what’s going on inside, give it a semi-transparent Material. If the Primitive you made has a default Collider that is not a Mesh Collider, remove it.
 
-![](../media/image87.png)
+![A refractive test object](../media/image87.png)
 
 The Refraction component adds an inverted Mesh Collider at runtime. It also conveniently tags the object with the tag “Refract.”
 
@@ -32,7 +32,7 @@ When light passes from one medium to another, the new direction at which it trav
 
 directionNew = n1/n2 \* (norm X (-norm X directionOld)) - Sqrt(1 - (n1/n2)\^2 \* (magnitude squared of (norm X directionOld)))
 
-where n1 and n2 are the indices of refractions of the 1st and 2nd media respectively, the norm is the normal of the surface hit, and the directions old and new are the incoming and outgoing direcitons.
+where n1 and n2 are the indices of refractions of the 1st and 2nd media respectively, the norm is the normal of the surface hit, and the directions old and new are the incoming and outgoing directions.
 
 (much thanks to
 [*SnarkEffects*](http://www.starkeffects.com/snells-law-vector.shtml)!)
@@ -44,11 +44,11 @@ This much will help you refract a ray into our Refract object. For now, don’t 
 
 The index of refraction of air is 1, so you can use that as your initial value. The index of refraction of glass is around 1.5, so you can use that as the value in the object in your Scene.
 
-![](../media/image82.gif)
+![Refraction through one face](../media/image82.gif)
 
 As a good check to make sure the math is correct, if you set both your initial index of refraction to 1 and your object’s index of refraction to 1, the beam should appear to pass straight through the refractive object.
 
-![](../media/image106.gif)
+![Refraction through a material with the same index of refraction as air can be used as a good check](../media/image106.gif)
 
 >[solution]
 >
@@ -90,7 +90,7 @@ go.GetInstanceID() for some instance of a GameObject, go.
 >[action]
 >Go ahead and implement this last bit to complete your refraction!
 
-![](../media/image76.gif)
+![Refraction is go!](../media/image76.gif)
 
 >[solution]
 >

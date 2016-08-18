@@ -12,7 +12,7 @@ In order to do this, we’ll just need to replace the Sphere spawning code with 
 
 By the way, if you have a fear of heights, we don’t recommend looking down when you teleport, since you’ll still be rotated facing “up.”
 
-![](../media/image92.png)
+![Fear of HEIGHTS](../media/image92.png)
 
 >[solution]
 >
@@ -130,11 +130,11 @@ public Color disabledColor = Color.red;
 >
 Be sure to test to make sure both work!
 
-![](../media/image117.gif)
+![2 Lasers!](../media/image117.gif)
 
 Feel free to take a few moments to customize your Beam and Reticle.
 
-![](../media/image109.gif)
+![We added boxes!](../media/image109.gif)
 
 >[solution]
 >

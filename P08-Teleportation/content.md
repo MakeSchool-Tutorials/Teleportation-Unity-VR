@@ -144,7 +144,7 @@ Yes, that’s right: in all cases, we’re setting our rangeRemaining to be 0. R
 
 The reason is that we plan to add more conditions here, and, if we leave off the else, we get this funny behaviour whenever we hit a surface to which we cannot teleport, like the token:
 
-![](../media/image35.gif)
+![Some funny reflection behaviour...](../media/image35.gif)
 
 This is because, without further instruction, we’re just recasting the same ray over and over until we run out of range. What we plan to do is change our input ray based on the wall type we just hit, and, in the case that we do hit a wall of no type, we do, in fact, want to just cut off the range and call it an unsuccessful, but conclusive, hit.
 
@@ -162,7 +162,7 @@ course need to put a test objects into the Scene.
 >[action]
 >Implement reflection!
 
-![](../media/image94.gif)
+![Reflection :D](../media/image94.gif)
 
 >[solution]
 >

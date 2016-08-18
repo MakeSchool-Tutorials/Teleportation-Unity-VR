@@ -30,7 +30,7 @@ You can make Game Objects inactive (i.e. invisible) or active (i.e. visible) by 
 
 Be sure to test it out and have a good time making some giant worm beasts.
 
-![](../media/image31.gif)
+![Having fun creating a Sphere Beast](../media/image31.gif)
 
 >[solution]
 >
