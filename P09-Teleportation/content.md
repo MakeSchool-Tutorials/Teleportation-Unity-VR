@@ -5,7 +5,7 @@ slug: refraction
 
 Now for refraction! The set-up for refraction is a little more challenging because it involves shooting a ray through an object from the inside and having it collide with the reverse face. If you cast a ray from within a mesh, like a Cube, however, this won’t happen; the ray will not detect a collision with the surface unless it’s approaching against the normal.
 
-In order to aid you, we’ve written a script to generate an inverted Mesh Collider. This will allow us to collide from both sides of any Mesh without having to do Mesh-specific set-up for each mesh we want to turn into a refractor.
+To aid you, we’ve written a script to generate an inverted Mesh Collider. This will allow us to collide from both sides of any Mesh without having to do Mesh-specific set-up for each mesh we want to turn into a refractor.
 
 In fact, we’ve created a few scripts that you may find helpful. You can access them by cloning them via:
 
@@ -15,42 +15,54 @@ git clone https://MakeSchool-Tutorials@bitbucket.org/MakeSchool-Tutorials/telepo
 
 and opening the resulting package in your project.
 
->[action]
->Obtain and import the package, and then create a new Primitive. Give it a new “Refract” tag, and add the Refract component to it. To make it easier to see what’s going on inside, give it a semi-transparent Material. If the Primitive you made has a default Collider that is not a Mesh Collider, remove it.
-
+> [action]
+>
+Obtain and import the package, and then create a new Primitive. Give it a new `Refract` tag, and add the `Refract` component to it. To make it easier to see what’s going on inside, give it a semi-transparent Material. If the Primitive you made has a default Collider that is not a Mesh Collider, remove it.
+>
 ![A refractive test object](../media/image87.png)
 
-The Refraction component adds an inverted Mesh Collider at runtime. It also conveniently tags the object with the tag “Refract.”
+The Refraction component adds an inverted Mesh Collider at runtime. It also conveniently tags the object with the tag `Refract.`
 
 You may have noticed the one public variable in Refract; index of refraction. What is this?
 
-The index of refraction of a substance is a number that determines how light travels through it. Every substance has one, and when light passes between two substances that have different indices of refraction, the light changes direction, or bends!
+A substance's index of refraction is a value that determines how light travels through it. Every substance has one, and when light passes between two substances that have different indices of refraction, the light changes direction, or bends!
 
 This is why images look all woobly from behind a water glass!
 
 When light passes from one medium to another, the new direction at which it travels can be determined by the following equation:
 
-directionNew = n1/n2 \* (norm X (-norm X directionOld)) - Sqrt(1 - (n1/n2)\^2 \* (magnitude squared of (norm X directionOld)))
+```
+directionNew = n1/n2 * (norm X (-norm X directionOld)) - Sqrt(1 - (n1/n2)\^2 * (magnitude squared of (norm X directionOld)))
+```
 
-where n1 and n2 are the indices of refractions of the 1st and 2nd media respectively, the norm is the normal of the surface hit, and the directions old and new are the incoming and outgoing directions.
+where `n1` and `n2` are the indices of refractions of the 1st and 2nd media respectively, the norm is the normal of the surface hit, and the directions old and new are the incoming and outgoing directions.
 
 (much thanks to
 [*SnarkEffects*](http://www.starkeffects.com/snells-law-vector.shtml)!)
 
-This much will help you refract a ray into our Refract object. For now, don’t worry about dealing with it once it’s inside; just get it to refract.
+# Inside of a mesh
 
->[action]
->Try implementing the first part of refraction; getting the ray inside. As a hint, you’ll probably need to add a new parameter to your helper method to handle the index of refraction.
+This much will help you refract a ray into our `Refract` object. For now, don’t worry about dealing with it once it’s inside; just get it to refract.
 
-The index of refraction of air is 1, so you can use that as your initial value. The index of refraction of glass is around 1.5, so you can use that as the value in the object in your Scene.
-
+> [challenge]
+>
+Try implementing the first part of refraction; getting the ray inside. As a hint, you’ll probably need to add a new parameter to your helper method to handle the index of refraction.
+>
+The index of refraction of air is `1`, so you can use that as your initial value. The index of refraction of glass is around `1.5`, so you can use that as the value in the object in your Scene.
+>
 ![Refraction through one face](../media/image82.gif)
 
-As a good check to make sure the math is correct, if you set both your initial index of refraction to 1 and your object’s index of refraction to 1, the beam should appear to pass straight through the refractive object.
+<!--  -->
 
+> [info]
+>
+As a good check to make sure the math is correct, if you set both your initial index of refraction to 1 and your object’s index of refraction to 1, the beam should appear to pass straight through the refractive object.
+>
 ![Refraction through a material with the same index of refraction as air can be used as a good check](../media/image106.gif)
 
->[solution]
+<!--  -->
+
+> [solution]
 >
 We added the following code below the reflection conditional:
 >
@@ -74,6 +86,8 @@ else if (hit.collider.CompareTag("Refract")) {
 }
 ```
 
+# Exiting the mesh
+
 In order to make our beam refract out correctly, we need only reset the index of refraction to 1 when we exit the object, but… how do we know from which direction we’ve hit it?
 
 Glad you asked!
@@ -87,12 +101,12 @@ All we need to do is cast out a ray and see how many times it’s hitting this o
 So how can we tell if the object we hit is the same one as any other object? There’s a very definitive way to do this in Unity; object IDs. Each Game Object has an object ID you can access by calling
 go.GetInstanceID() for some instance of a GameObject, go.
 
->[action]
+> [action]
 >Go ahead and implement this last bit to complete your refraction!
 
 ![Refraction is go!](../media/image76.gif)
 
->[solution]
+> [solution]
 >
 Our code looks like this:
 >
@@ -129,25 +143,40 @@ The variable wallThickness is a new public variable we added in order to prevent
 
 Congratulations! You’ve just implemented a beam that can reflect and refract also known as... a Ray Tracer! If that word sounds familiar, it’s because Ray Tracing is the process lighting uses to determine pixel colors. ;)
 
-If you’d like to make your reflective object, we've included a Reflect component you can drag onto your reflective object.
+If you’d like to make a reflective object, we've included a Reflect component you can drag onto your reflective object.
+
+# Challenges
 
 If you want some "light" challenges, go ahead and try implementing any of these:
 
-- adding levels
+> [challenge]
+>
+Add levels.
 
-- making your teleport beam go in an arc (you may want to turn off reflection and refraction for this)
+<!--  -->
 
-- making your laser beam pulse like the sample beam -- hint!  Look at the [SetTextureScale](https://docs.unity3d.com/ScriptReference/Material.SetTextureScale.html) and [SetTextureOffset](https://docs.unity3d.com/ScriptReference/Material.SetTextureOffset.html) properties of Material ;)
+> [challenge]
+>
+Make your teleport beam go in an arc (you may want to turn off reflection and refraction for this).
 
-If you’d like a more difficult challenge, here are a few things to
-consider:
+<!--  -->
 
-- Right now, our teleportation is a bit non-ideal. When we teleport onto a wall, we land facing an arbitrary direction -- you can see this if you have a Play Area on your reticle. This is because our method of specifying orientation was imprecise: we specified an up direction, but that still left us a degree of freedom, and so Unity snapped us to the default orientation for that up direction. Can you think of a sensible way to make the player land in a more expected orientation?
+> [challenge]
+>
+Make your laser beam pulse like the sample beam -- hint!  Look at the [SetTextureScale](https://docs.unity3d.com/ScriptReference/Material.SetTextureScale.html) and [SetTextureOffset](https://docs.unity3d.com/ScriptReference/Material.SetTextureOffset.html) properties of Material ;)
 
-- Right now, you can actually walk through the walls if you teleport next to them and have enough play space to move around in the real world! It would be ideal if the camera did something to let us know that we were outside of the game’s intended bounds. Can you think of something to resolve this issue?
+If you’d like a more difficult challenge, here are a few things to consider:
 
-- You may have noticed that it was rather inconvenient to have to set properties on BOTH the TeleportationBeams once they had been added to both hands.  It would be great if there were one central place where you could set both their properites to be identical.  Can you think of a way to centralize the property-setting on the hands?
+> [challenge]
+>
+Right now, our teleportation is a bit non-ideal. When we teleport onto a wall, we land facing an arbitrary direction -- you can see this if you have a Play Area on your reticle. This is because our method of specifying orientation was imprecise: we specified an up direction, but that still left us a degree of freedom, and so Unity snapped us to the default orientation for that up direction. Can you think of a sensible way to make the player land in a more expected orientation?
 
-And, of course, there’s always more cosmetic stuff to do ;p
+> [challenge]
+>
+Right now, you can actually walk through the walls if you teleport next to them and have enough play space to move around in the real world! It would be ideal if the camera did something to let us know that we were outside of the game’s intended bounds. Can you think of something to resolve this issue?
 
-Have fun!
+> [challenge]
+>
+You may have noticed that it was rather inconvenient to have to set properties on BOTH the `TeleportationBeams` once they had been added to both hands. It would be great if there were one central place where you could set both their properties to be identical. Can you think of a way to centralize the property-setting on the hands?
+
+And, of course, there’s always more cosmetic stuff to do ;p Have fun!
