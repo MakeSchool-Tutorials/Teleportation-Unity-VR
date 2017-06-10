@@ -23,7 +23,7 @@ To allow ourselves to do this kind of detection, change Goal’s `Collider` to b
 
 > [challenge]
 >
-Make the `Goal` destroy the `Token` when the token falls inside it. To test this, it may be easiest to place the `Token` directly above the `Goal`.
+Make the `Goal` destroy the `Token` when the token falls inside it. To test this, it may be easiest to place the `Token` directly above the `Goal` and temporarily add a Rigidbody.
 >
 ![Our Token disappears when it touches our Goal](../media/image102.gif)
 

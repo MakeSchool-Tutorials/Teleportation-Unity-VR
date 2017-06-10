@@ -3,6 +3,10 @@ title: "Refraction"
 slug: refraction
 ---
 
+> [info]
+>
+**_This section is under construction. Please skip it for now!_**
+
 Now for refraction! The set-up for refraction is a little more challenging because it involves shooting a ray through an object from the inside and having it collide with the reverse face. If you cast a ray from within a mesh, like a Cube, however, this won’t happen; the ray will not detect a collision with the surface unless it’s approaching against the normal.
 
 To aid you, we’ve written a script to generate an inverted Mesh Collider. This will allow us to collide from both sides of any Mesh without having to do Mesh-specific set-up for each mesh we want to turn into a refractor.
@@ -171,9 +175,13 @@ If you’d like a more difficult challenge, here are a few things to consider:
 >
 Right now, our teleportation is a bit non-ideal. When we teleport onto a wall, we land facing an arbitrary direction -- you can see this if you have a Play Area on your reticle. This is because our method of specifying orientation was imprecise: we specified an up direction, but that still left us a degree of freedom, and so Unity snapped us to the default orientation for that up direction. Can you think of a sensible way to make the player land in a more expected orientation?
 
+<!--  -->
+
 > [challenge]
 >
 Right now, you can actually walk through the walls if you teleport next to them and have enough play space to move around in the real world! It would be ideal if the camera did something to let us know that we were outside of the game’s intended bounds. Can you think of something to resolve this issue?
+
+<!--  -->
 
 > [challenge]
 >

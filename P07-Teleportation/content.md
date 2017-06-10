@@ -3,13 +3,17 @@ title: "Fading Up and Down"
 slug: the-great-fade
 ---
 
+> [info]
+>
+**_This section is under construction. Please skip it for now!_**
+
 As one final step, we’re going to add an _additive dissolve_ (i.e. a dip-to-white) effect that will appear in front of our faces when we teleport.
 
 We’re going to do this via a _Camera effect_.
 
 > [action]
 >
-Import the `Standard Assets Effects` package (`Assets->Import Package->Effects`) and then add a `Screen Overlay` component to your `Camera (eye)` Game Object. Set its `intensity` to `0` and `Blend Mode` to `Additive`.
+Import the `Legacy Cinematic Image Effects` package from the asset store and then add a `Screen Overlay` component to your `Camera (eye)` Game Object. Set its `intensity` to `0` and `Blend Mode` to `Additive`.
 >
 ![We added Screen Overlay from the Standard Assets](../media/image41.png)
 
@@ -103,11 +107,7 @@ Now create a transition from Any State to `AdditiveDissolve_Appear`.
 
 We’re going to add a condition to this transition using something totally unrelated to colliders, but also called a `Trigger`. In this sense, a `Trigger` is a `boolean` that gets reset to `false` at the end of the frame, so whenever we set it, Unity knows that it was just set this frame and can use it to trigger a one-time thing.
 
-> [info]
->
 Different parameter types are useful for different types of animations. `Bools` are good for states like `Idle` vs `Falling.` Ints work well for things that inherently have levels built in, like `Fatigue 1,` `Fatigue 2`, etc. Floats are great for actions that measure the same value, like `Walking` vs `Running,` which may depend on magnitude of velocity. Because of their one-shot nature, Triggers are very handy for animations that get, well... triggered... by various actions. You can also mix and match parameters on transitions.
-
-<!--  -->
 
 > [action]
 >

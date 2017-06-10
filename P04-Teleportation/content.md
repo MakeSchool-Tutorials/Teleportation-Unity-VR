@@ -7,27 +7,27 @@ Now we have some pretty good visual indicators to show where we’ll teleport wh
 
 However, it’s kind of obnoxious to have to look at a laser shooting out of our controller all the time, and it would be even more annoying with two hands. We’d like our laser and reticle to only appear when we’re holding down the teleport button and then for the actual teleportation to occur when we release the button. Then, when we release it, we’d like to actually teleport.
 
-Since we don’t want to add too many things at once, we’re first going to take a baby step in this direction by making our beam only appear when we hold down the teleport button (we’ll use the Trackpad), and then doing... something with the hit information when we release that button, for example, spawning a sphere at the hit point.
+Since we don’t want to add too many things at once, we’re first going to take a baby step in this direction by making our beam only appear when we hold down the teleport button (we’ll use the joystick), and then doing... something with the hit information when we release that button, for example, spawning a sphere at the hit point.
 
 Of course we’ll take out this code when we implement the actual teleport mechanic, but, for now, spawning a sphere is a visual thing we can do to let ourselves know we’ve done something correct with the data.
 
 > [challenge]
 >
-Go ahead and make the Laser and Reticle both only appear when you’re holding down the Trackpad, and then make a sphere appear when you release it.
+Go ahead and make the Laser and Reticle both only appear when you’re holding down the joystick, and then make a sphere appear when you release it.
 
 Here are some hints to get you started, since this can be a bit involved ("Baby step" may be appropriately in the case of a hippo):
 
-Given a `SteamVR_TrackedObject`, controller, you can check whether or not the Trackpad is currently pressed in the following way:
+Given a `SteamVR_TrackedObject`, controller, you can check whether or not the joystick is currently pressed in the following way:
 
 ```
 SteamVR_Controller.Device device = SteamVR_Controller.Input((int)controller.index);
 
 if (device.GetPress(Valve.VR.EVRButtonId.k_EButton_Axis0) {
-  Debug.Log("We're pressing the trackpad!");
+  Debug.Log("We're pressing the joystick!");
 }
 ```
 
-and to check a trackpad release, it’s the same, but `GetPressUp` instead of `GetPress.`
+and to check a joystick release, it’s the same, but `GetPressUp` instead of `GetPress.`
 
 You can make Game Objects inactive (i.e. invisible) or active (i.e. visible) by calling `SetActive(isActive)` on them, where `isActive` is a `bool`.
 
@@ -90,14 +90,16 @@ public class TeleportationBeam : MonoBehaviour {
       reticle.position = ray.origin + ray.direction * range;
 >
       reticleLight.color = disabledColor;
-      laser.SetColors(disabledColor, disabledColor);
+      laser.startColor = disabledColor;
+      laser.endColor = disabledColor;
 >
       if (Physics.Raycast(ray, out hit, range)) {
 >
         reticle.position = hit.point;
 >
         reticleLight.color = enabledColor;
-        laser.SetColors(enabledColor, enabledColor);
+        laser.startColor = enabledColor;
+        laser.endColor = enabledColor;
 >
         target = hit;
         canTeleport = true;
@@ -105,7 +107,7 @@ public class TeleportationBeam : MonoBehaviour {
 >
       waypoints.Add(reticle.position);
 >
-      laser.SetVertexCount(waypoints.Count);
+      laser.positionCount = waypoints.Count;
       laser.SetPositions(waypoints.ToArray());
 >      
     } else {
@@ -124,7 +126,7 @@ public class TeleportationBeam : MonoBehaviour {
 }
 ```
 >
-To keep an invalid beam cast from counting as a teleport, we added the `canTeleport` flag, which we set to `false` on every trackpad press. We set it to true if we hit something, so that a valid hit will lead to a valid up press.
+To keep an invalid beam cast from counting as a teleport, we added the `canTeleport` flag, which we set to `false` on every joystick press. We set it to true if we hit something, so that a valid hit will lead to a valid up press.
 >
 We also decided to make the `buttonId` a public variable (with a default value) so that we could set that from the Editor if we ever changed our minds about which button we wanted to use as the teleport button. In
 general, this is a pretty good idea, and, if our component weren’t already named `TeleportationBeam` we would have picked a name more descriptive of teleportation, like `teleportButtonId`. Given the context though, it seemed redundant to add the word `teleport` in there.

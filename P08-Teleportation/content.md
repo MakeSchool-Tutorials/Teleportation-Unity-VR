@@ -3,6 +3,10 @@ title: "Reflection"
 slug: reflection
 ---
 
+> [info]
+>
+**_This section is under construction. Please skip it for now!_**
+
 But why stop here? We’ve got this fun beam, so why not make it do other things beams do, like reflect (like off a mirror) and refract (like off a prism)?
 
 In order to make our beam bounce, we’ll no longer be able to rely on a single Raycast alone. Instead, depending on the surface we hit, we may want to bounce again... and again... and again!

@@ -7,7 +7,7 @@ Now it’s time to create a laser that extends from our hand to the Reticle.
 
 To do this, we can use the `Line Renderer` component. The `Line Renderer` component renders a line through any set of points you specify for it.
 
-If you want to see what it looks like, you can create an Empty Game Object with a `Line Renderer` on it and try playing around with its properties. You can change the line width at the beginning and end, tell it to travel through a new set of positions, change how many positions it travels through, etc. If you want to change the color, you’ll need to give it a `Material` with a `Shader` that will let the colors show up. One that works well is `Particles/Alpha Blended Premultiply`.
+If you want to see what it looks like, you can create an Empty Game Object with a `Line Renderer` on it and try playing around with its properties. You can change the line width at the beginning and end, tell it to travel through a new set of positions, change how many positions it travels through, etc. If you want to change the color, you’ll need to give it a `Material` with a `Shader` that will let the colors show up. One that works well is `Particles/~Additive-Multiply`.
 
 ![A wild line renderer appears](../media/image49.png)
 
@@ -60,19 +60,21 @@ public class TeleportationBeam : MonoBehaviour {
     reticle.position = ray.origin + ray.direction * range;
 >
     reticleLight.color = disabledColor;
-    laser.SetColors(disabledColor, disabledColor);
+    laser.startColor = disabledColor;
+    laser.endColor = disabledColor;
 >
     if (Physics.Raycast(ray, out hit, range)) {
 >
       reticle.position = hit.point;
       reticleLight.color = enabledColor;
 >
-      laser.SetColors(enabledColor, enabledColor);
+      laser.startColor = enabledColor;
+      laser.endColor = enabledColor;
     }
 >
     waypoints.Add(reticle.position);
 >
-    laser.SetVertexCount(waypoints.Count);
+    laser.positionCount = waypoints.Count;
     laser.SetPositions(waypoints.ToArray());
   }
 }
@@ -80,6 +82,6 @@ public class TeleportationBeam : MonoBehaviour {
 >
 The `public Line Render` variable was filled in the Editor by creating an `Empty Game Object` with a `Line Renderer` (like the one we were playing with!) and dragging it in.
 >
-Because we didn’t want our laser to cast shadows, we turned off all shadow-casting properties on the Line Renderer.
+Because we didn’t want our laser to cast shadows, we turned off all shadow-casting properties on the Line Renderer. Check out the image for some settings we liked. Play around with them and see what you come up with!
 >
 ![](../media/image107.png)

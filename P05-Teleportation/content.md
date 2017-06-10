@@ -169,12 +169,13 @@ public class Laser : MonoBehaviour {
   }
 >
   public void SetColor(Color color) {
-    lr.SetColors(color, color);
+    lr.startColor = color;
+    lr.endColor = color;
   }
 >
   public void SetWaypoints(Vector3[] waypoints) {
 >
-    lr.SetVertexCount(waypoints.Length);
+    lr.positionCount = waypoints.Count;
     lr.SetPositions(waypoints);
   }
 }
@@ -190,11 +191,12 @@ using System.Collections;
 public class Reticle : MonoBehaviour {
 >
   private Light halo;
-  public SteamVR_PlayArea playArea;
+  private SteamVR_PlayArea playArea;
 >
   // Use this for initialization
   void Start () {
     halo = GetComponent<Light>();
+    playArea = GetComponent<SteamVR_PlayArea>();
   }
 >
   // Update is called once per frame

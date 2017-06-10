@@ -41,6 +41,12 @@ public class TeleportationBeam : MonoBehaviour {
 
 <!-- TODO: Update gif with Oculus controllers -->
 
+> [info]
+>
+Since we're using SteamVR, our code is actually compatible with _both_ Oculus Rift and HTC Vive! Some of the gifs in this tutorial will contain Vive controllers but fret not, everything has been checked for Oculus as well.
+>
+When using Vive, the Oculus' joystick maps to the Vive's trackpad.
+
 ![The reticle moves around with our pointer](../media/image42.gif)
 
 > [info]
