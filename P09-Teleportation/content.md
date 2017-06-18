@@ -14,7 +14,8 @@ To aid you, we’ve written a script to generate an inverted Mesh Collider. This
 In fact, we’ve created a few scripts that you may find helpful. You can access them by cloning them via:
 
 ```
-git clone https://MakeSchool-Tutorials@bitbucket.org/MakeSchool-Tutorials/teleportation-unity-vr.git
+cd Desktop
+git clone https://github.com/MakeSchool-Tutorials/Teleportation-Unity-VR-Starter.git
 ```
 
 and opening the resulting package in your project.
